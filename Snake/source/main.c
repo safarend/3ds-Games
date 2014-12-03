@@ -137,10 +137,11 @@ int main(int argc, char** argv)
 	}
 
 	exit:
+      // free(top_screen); crash
+      // free(bottom_screen); crash
 
 	//cleanup and return
 	//returning from main() returns to hbmenu when run under ninjhax
-	//closing all handles is super important
 	//closing all services even more so
 	gfxExit();
 	hidExit();
