@@ -135,6 +135,8 @@ int main(int argc, char** argv)
 		gfxSwapBuffersGpu();
 		gspWaitForEvent(GSPEVENT_VBlank0, false);
 	}
+	free(top_screen);
+	free(bottom_screen);
 	exit:
 	//cleanup and return
 	//returning from main() returns to hbmenu when run under ninjhax
