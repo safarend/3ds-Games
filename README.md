@@ -2,6 +2,6 @@
 =========
 
 opensource 
-Code is buggy.
+Code is buggy. I'm bad at C 
 
 Do not try unless you know what you are doing :)
