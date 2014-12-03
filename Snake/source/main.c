@@ -59,8 +59,8 @@ int main(int argc, char** argv)
 	hidInit(NULL); //needed for input
 	gfxInit(); //makes displaying to screen easier
 
-	u8* top_screen = (unsigned char *)malloc( 288780 );
-	u8* bottom_screen = (unsigned char *)malloc( 77080 );
+	u8* top_screen = (u8 *)malloc( 288780 );
+	u8* bottom_screen = (u8 *)malloc( 77080 );
 	int i;
 	for(i=0;i<288720;i++)
 		top_screen[i] = 0;
@@ -137,15 +137,16 @@ int main(int argc, char** argv)
 	}
 
 	exit:
-      // free(top_screen); crash
-      // free(bottom_screen); crash
 
 	//cleanup and return
 	//returning from main() returns to hbmenu when run under ninjhax
+	//closing all handles is super important
 	//closing all services even more so
 	gfxExit();
 	hidExit();
 	aptExit();
 	srvExit();
+	free(top_screen);
+	free(bottom_screen);
 	return 0;
 }
