@@ -4,7 +4,7 @@
 
 #include <stdbool.h>
 #include <3ds.h>
-#include <3ds/linear.h>
+
 #define MAX_ROWS 240
 #define MAX_COLS_UP 400
 #define MAX_COLS_DOWN 320
@@ -49,10 +49,11 @@ void changePointers(u8* gfx, u8* news, bool issmall){
 		}
 	}
 }
+
 int main(int argc, char** argv)
 {
-	int r,g,b, x,y, zoom;
-	b=r=g=x=y=zoom=0;
+	int r,g,b, row,col, zoom;
+	b=r=g=row=col=zoom=0;
 
 	//initialize the services we're going to be using
 	srvInit(); //needed for everything
@@ -61,10 +62,10 @@ int main(int argc, char** argv)
 	gfxInit(); //makes displaying to screen easier
 
 	u8* top_screen = (u8 *)linearAlloc( 288780 );
-	u8* bottom_screen = (u8 *)linearAlloc( 77080 );
+	u8* bottom_screen = (u8 *)linearAlloc( 231120 );
 
 	int i;
-	for(i=0;i<288720;i++)
+	for(i=0;i<288780;i++)
 		top_screen[i] = 0;
 	for(i=0;i<231120;i++)
 		bottom_screen[i] = 0;
@@ -76,10 +77,10 @@ int main(int argc, char** argv)
 		if(keysDown()&KEY_START)break;
 
 		//D-PAD to rotate object
-		if(keysHeld()&KEY_UP)x++;
-		if(keysHeld()&KEY_DOWN)x--;
-		if(keysHeld()&KEY_RIGHT)y++;
-		if(keysHeld()&KEY_LEFT)y--;
+		if(keysHeld()&KEY_UP)row++;
+		if(keysHeld()&KEY_DOWN)row--;
+		if(keysHeld()&KEY_RIGHT)col++;
+		if(keysHeld()&KEY_LEFT)col--;
 
 		if(keysHeld()&KEY_X)b++;
 		if(keysHeld()&KEY_Y)r++;
@@ -94,42 +95,42 @@ int main(int argc, char** argv)
 		if(g > 255) g = 0;
 		if(b > 255) b = 0;
 
-		if(!is_top && y > 320)
-			y = 0;
-		else if(y > 400)
-			y=0;
-		else if(!is_top && y < 0)
-			y=320;
-		else if(y < 0)
-			y=0;
+		if(!is_top && col > 320)
+			col = 0;
+		else if(col > 400)
+			col=0;
+		else if(!is_top && col < 0)
+			col=320;
+		else if(col < 0)
+			col=0;
 
-		if(x > 240){
-			x = 0;
+		if(row > 240){
+			row = 0;
 			if(!is_top){
-				y += 40;
+				col += 40;
 				is_top = true;
-			}else if(is_top && y>40 && y<360){
-				y -= 40;
+			}else if(is_top && col>40 && col<360){
+				col -= 40;
 				is_top = false;
 			}
 		}
-		else if(x < 0){
-			x = 240;
+		else if(row < 0){
+			row = 240;
 			if(!is_top){
-				y += 40;
+				col += 40;
 				is_top = true;
-			}else if(is_top && y>40 && y<360){
-				y -= 40;
+			}else if(is_top && col>40 && col<360){
+				col -= 40;
 				is_top = false;
 			}
 		}
 
 		if(is_top){
-			MultiPixel(top_screen, x, y, b, g, r, zoom, is_top);
+			MultiPixel(top_screen, row, col, b, g, r, zoom, is_top);
 			changePointers(renderEffect(true), top_screen, false);
 		}
 		else{
-			MultiPixel(bottom_screen, x, y, b, g, r, zoom, is_top);
+			MultiPixel(bottom_screen, row, col, b, g, r, zoom, is_top);
 			changePointers(renderEffect(false), bottom_screen, true);
 		}
 
