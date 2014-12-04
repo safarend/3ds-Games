@@ -4,7 +4,6 @@
 
 #include <stdbool.h>
 #include <3ds.h>
-#include <3ds/linear.h>
 #define MAX_ROWS 240
 #define MAX_COLS_UP 400
 #define MAX_COLS_DOWN 320
