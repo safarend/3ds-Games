@@ -64,9 +64,9 @@ int main(int argc, char** argv)
 	u8* bottom_screen = (u8 *)linearAlloc( 77080 );
 
 	int i;
-	for(i=0;i<288720;i++)
+	for(i=0;i<288780;i++)
 		top_screen[i] = 0;
-	for(i=0;i<231120;i++)
+	for(i=0;i<77080;i++)
 		bottom_screen[i] = 0;
 	bool is_top = true;
 	while(aptMainLoop())
