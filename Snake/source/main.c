@@ -4,7 +4,10 @@
 
 #include <stdbool.h>
 #include <3ds.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9c006023db5caf101bf85fef6c159884e5bad02c
 #define MAX_ROWS 240
 #define MAX_COLS_UP 400
 #define MAX_COLS_DOWN 320
